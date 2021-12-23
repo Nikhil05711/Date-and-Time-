@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.11;
 
-/// @title A title that should describe the contract/interface
-/// @author The name of the author
-/// @notice Explain to an end user what this does
-/// @dev Explain to a developer any extra details
+/// @title : Date and time library is sufficient to describe all about time
+/// @author : Nikhil Chauhan
+/// @notice : All about time and dates
+/// @dev : According to the latest version of solidity
 
 contract dateAndTime {
     struct Date {
@@ -24,7 +24,10 @@ contract dateAndTime {
     uint256 constant MInute_In_Seconds = 60;
     uint256 constant Origin_Year = 1970;
 
+    // @dev : check the year is leap
+    // @params : year to check if it leap year then returns true
     function isLeapYear(uint256 _year) public pure returns (bool) {
+        require(_year > 0, "Invalid data provided");
         if (_year % 4 != 0) {
             return false;
         }
@@ -37,11 +40,13 @@ contract dateAndTime {
         return true;
     }
 
+    // @dev: check how many leap year present till the given year provided
     function TotalLeapYearTillNow(uint256 _year) public pure returns (uint256) {
         _year -= 1;
         return _year / 4 - _year / 100 + _year / 400;
     }
 
+    // @dev: Number of days which are present in given month
     function getDaysInMonth(uint256 _month, uint256 _year)
         public
         pure
@@ -67,6 +72,8 @@ contract dateAndTime {
         }
     }
 
+    //  @params: provide us the year at particular time stamp
+    //  and time is taken according to unix time converter
     function getYear(uint256 timeStamp) public pure returns (uint256) {
         uint256 secondsAccountedFor = 0;
         uint256 year;
@@ -89,7 +96,8 @@ contract dateAndTime {
         }
         return year;
     }
-
+    
+    // @dev: give us the proper description of time in details 
     function parseTimeStamp(uint256 timeStamp)
         public
         pure
@@ -130,10 +138,12 @@ contract dateAndTime {
         DAT.weekDays = getWeekDays(timeStamp);
     }
 
+    // @dev: provide us the month at the given timestamp
     function getMonth(uint256 timeStamp) public pure returns (uint256) {
         return parseTimeStamp(timeStamp).month;
     }
 
+    // @dev: provide us the day 
     function getDay(uint256 timeStamp) public pure returns (uint256) {
         return parseTimeStamp(timeStamp).day;
     }
